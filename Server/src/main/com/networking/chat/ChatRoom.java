@@ -1,6 +1,8 @@
 package com.networking.chat;
 
+import java.io.BufferedReader;
 
+import com.networking.chat.Client;
 public class ChatRoom {
 
     private int connected = 0;
@@ -10,8 +12,7 @@ public class ChatRoom {
     public ChatRoom(Client[] clients){
         this.clients = clients;
         this.connected = 1;
-        //send update message to head client
-        clients[i].sendToClient("");
+        String ringmsg = "Ringing";
         //send request message
         for(int i = 1; i < connected; i++){
             String msg = "Talk request from" +
@@ -22,7 +23,10 @@ public class ChatRoom {
                          "@" + clients[0].getIPAddr() +
                          "\"";
             clients[i].sendToClient(msg);
+            ringmsg += " " + clients[i].getName();
         }
+        //send update message to head client
+        clients[0].sendToClient(ringmsg);
     }
 
     //accepts clients

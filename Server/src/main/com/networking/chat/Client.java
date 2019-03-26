@@ -1,9 +1,17 @@
 package com.networking.chat;
 
+import java.util.ArrayList;
 import java.io.BufferedOutputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.net.Socket;
 
-public class Client {
+import com.networking.server.Server;
+import com.networking.chat.ChatRoom;
+import com.networking.chat.client.ClientInput;;
+
+public class Client{
 
     private final int ID;
 
@@ -15,7 +23,7 @@ public class Client {
     private ChatRoom chatRoom;
     
     //create new client and new client input.
-    public Client(int id,Socket socket, Server server){
+    public Client(int id,Socket socket, Server server) throws IOException{
         this.ID = id;
         this.name = "Client" + id;
         this.socket = socket;
@@ -87,9 +95,13 @@ public class Client {
 
     public void sendToClient(String message){
         //send message to client
-        Char[] characters = message.toCharArray();
-        for(Char byt : characters)
-            out.write(byt);
+        char[] characters = message.toCharArray();
+        for(char byt : characters)
+            try{
+                out.write(byt);
+            }catch(IOException e){
+                e.printStackTrace();
+            }
     }
 
     // get the client's current chat room
@@ -112,11 +124,20 @@ public class Client {
         return this.socket.getLocalAddress().getHostAddress();
     }
 
+    //gets the client's ID
+    public int getID(){
+        return this.ID;
+    }
+
     //close client from chat room, output and server
     public void closeClient(){
         if(this.chatRoom != null)
-            chatRoom.clientDisconnect(client);
-        out.close();
+            chatRoom.clientDisconnect(this);
+        try{
+            out.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         server.closeClient(this);
     }
 

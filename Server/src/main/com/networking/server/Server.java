@@ -1,7 +1,12 @@
 package com.networking.server;
 
+import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.List;
+import java.util.ArrayList;
+
+import com.networking.chat.Client;
 
 
 // server accepts clients, then sends
@@ -16,26 +21,37 @@ public class Server{
 
     //server constructor to start loop for client
     public Server(){
-        server = new ServerSocket(PORT);
-        init();
+        try {
+            server = new ServerSocket(PORT);
+            init();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     // initializes server
     private void init(){
-        while(server.isClosed()){
-            Socket clientSocket = socket.accept();
-            int id = getNewClientId();
-            Client client = new Client(id, clientSocket, this);
-            clients.add(id, new Client(client));
+        while(!server.isClosed()){
+            try{
+                Socket clientSocket = server.accept();
+                int id = this.getNewClientID();
+                Client client = new Client(id, clientSocket, this);
+                clients.add(id, client);
+            }catch(IOException e){
+                //could not connect to client
+                e.printStackTrace();
+            }
         }
     }
 
     // creates a new clients id. This id will be the number of the client
     private int getNewClientID(){
-        for(int i = 0; i < clients.length; i++){
+        int id = -1;
+        for(int i = 0; i < clients.size(); i++){
             if(clients.get(i) == null)
-                return i;
+                id = i;
         }
+        return id;
     }
 
     //get the client based on given ID
@@ -64,6 +80,10 @@ public class Server{
                 }
         }
         return c;
+    }
+
+    public static void main(String args[]){
+        new Server();
     }
 
 }

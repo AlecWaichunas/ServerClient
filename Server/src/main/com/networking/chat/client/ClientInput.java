@@ -1,6 +1,9 @@
 package com.networking.chat.client;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+
+import com.networking.chat.Client;
 
 public class ClientInput implements Runnable{
     
@@ -17,14 +20,22 @@ public class ClientInput implements Runnable{
 
     public void run(){
         String data;
-        while((data = input.readLine()) != null){
-            client.readClient(data);
+        try{
+            while((data = input.readLine()) != null)
+                client.readClient(data);
+        }catch(IOException e){
+            e.printStackTrace();
         }
+
         closeClient();
     }
 
     private void closeClient(){
-        input.close();
+        try{
+            input.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         this.client.closeClient();
     }
 
