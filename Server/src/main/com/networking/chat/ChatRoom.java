@@ -40,7 +40,7 @@ public class ChatRoom {
     public void castMessage(Client client, String message){
         for(Client c : this.clients){
             if(!c.equals(client) && c.getChatRoom().equals(this))
-                c.sendToClient(c.getName() + ": " + message);
+                c.sendToClient(client.getName() + ": " + message);
         }
     }
 

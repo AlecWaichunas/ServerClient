@@ -1,6 +1,5 @@
 package com.networking.chat;
 
-import java.util.ArrayList;
 import java.io.BufferedOutputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
@@ -57,9 +56,9 @@ public class Client{
                 }
                 this.chatRoom = new ChatRoom(clients);
             }else if(commands[0].equalsIgnoreCase("conference") &&
-                //create a chat room with multiple clients
                 commands[1].equalsIgnoreCase("talk")){
-                Client[] clients = new Client[2];
+                //create a chat room with multiple clients
+                Client[] clients = new Client[commands.length - 1];
                 clients[0] = this;
                 for(int i = 2; i < commands.length; i++){
                     int id = Integer.parseInt(commands[i].substring(6));
@@ -102,6 +101,7 @@ public class Client{
             }catch(IOException e){
                 e.printStackTrace();
             }
+        out.flush();
     }
 
     // get the client's current chat room
