@@ -1,8 +1,8 @@
 ### CS440 Lab 1
 
-Alec Waichunas
-Angel Galeana
-April 4th, 2019
+Alec Waichunas  
+Angel Galeana  
+April 4th, 2019  
 Prof. Bidyut Gupta  
 
 #### Introduction
