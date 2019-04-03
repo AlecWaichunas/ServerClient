@@ -92,16 +92,12 @@ for(Client c : this.clients){
 Java is very easy to work with, and to detect errors between the sockets, they can simply be surrounded with try and catch blocks. These blocks will catch the errors and can deal with each error seperately. 
 
 #### Known Bugs
-There is a bug that was not caught when creating the program. 
-When the client is waiting on the server for the response there is no timeout.
-This could leave the client in a hanging state. 
-To fix this a simple timeout function could be made with a goroutine to timeout after x amount of time.
  
 #### Packages
-There are a few java packages that were used to create this program.
-The net package was used to let the server listen on a port, and for the client to connect to the server.
-The io package was used to read and write data from the client and server.
-The util package was used to create linked list to create track of the clients in the server.
+There are a few java packages that were used to create this program.  
+The net package was used to let the server listen on a port, and for the client to connect to the server.  
+The io package was used to read and write data from the client and server.  
+The util package was used to create linked list to create track of the clients in the server.  
 
 #### Possible Improvements
 
