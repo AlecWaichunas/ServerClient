@@ -6,7 +6,7 @@ April 4th, 2019
 Prof. Bidyut Gupta  
 
 #### Introduction
-
+This client server application allows multiple clients to connect to a server. Once a client is connected to the server, they can create chat rooms with other connected clients. The server controls the flow of the clients, and the chat rooms. The client will just connect to the server and send/receive messages to communicate with the server or other clients.
 
 #### Execution
 The Server must be compiled to run. To compile the server, you can use any Java supported IDE to immediately start it, otherwise you can compile it through a CLI with javac and run it with java.
@@ -92,7 +92,8 @@ for(Client c : this.clients){
 Java is very easy to work with, and to detect errors between the sockets, they can simply be surrounded with try and catch blocks. These blocks will catch the errors and can deal with each error seperately. 
 
 #### Known Bugs
- 
+While testing the program, no bugs were found and the program needs to be further stress tested to figure out the unknown bugs.
+
 #### Packages
 There are a few java packages that were used to create this program.  
 The net package was used to let the server listen on a port, and for the client to connect to the server.  
@@ -100,7 +101,7 @@ The io package was used to read and write data from the client and server.
 The util package was used to create linked list to create track of the clients in the server.  
 
 #### Possible Improvements
-
+One improvement to the program, would to have the client be in control of the chat room more. The server takes control of the entire program, and the client is simply just an intereface for it.
  
 #### Conclusion
-
+The lab opened up the oppurtunity to easily install a system where clients can create chat rooms with each other easily. Having the client object in the server have reference to the chat room object made sending messages to the other clients very easy. 
