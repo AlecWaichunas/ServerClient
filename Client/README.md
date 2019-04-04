@@ -133,10 +133,10 @@ private Socket s;
   
   Finally, the main method initializes a new client to run the program. 
   
-  
+  {
   public static void main(String[] args) throws IOException {
 		client cl1 = new client();
-	}
+	}}
 
 #### Error detection within the programs
 Java is very easy to work with, and to detect errors between the sockets, they can simply be surrounded with try and catch blocks. These blocks will catch the errors and can deal with each error seperately. 
