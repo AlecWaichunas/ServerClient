@@ -133,8 +133,8 @@ private Socket s;
   
   Finally, the main method initializes a new client to run the program. 
   
+  
   public static void main(String[] args) throws IOException {
-	
 		client cl1 = new client();
 	}
 
