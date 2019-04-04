@@ -90,10 +90,10 @@ for(Client c : this.clients){
 #### The Client Program
 The client program consist of one class using the Runnable interface. This class consisist of 4 methods. 
 
-The entry method creates the socket and starts the thread. PrintWriter is used to translate objects into text-output. Then makes
-a call to the ReadClient() method.
+The entry method creates the socket and starts the thread. PrintWriter is used to translate objects into text-output. Then makes a call to the ReadClient() method.
 
-private Socket s;	
+private Socket s;
+
 	public client() throws IOException {
 		s = new Socket("localhost", 12252);
 		PrintWriter pr = new PrintWriter(s.getOutputStream());
