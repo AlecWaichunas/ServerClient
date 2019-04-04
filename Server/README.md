@@ -89,7 +89,19 @@ for(Client c : this.clients){
 #### The Client Program
 
 #### Error detection within the programs
-Java is very easy to work with, and to detect errors between the sockets, they can simply be surrounded with try and catch blocks. These blocks will catch the errors and can deal with each error seperately. 
+The server will check if the client exists when a command is ran, if it does not exist the output will look like a version of below.
+````
+You are Client0
+talk client1
+Client1 not logged in!
+conference talk client1 client2
+Client1 not logged in!
+conference talk client2 client3
+Client2 not logged in!
+talk client2
+Client2 not logged in!
+````
+The chat room will not be made if one of the clients are not logged in.
 
 #### Known Bugs
 While testing the program, no bugs were found and the program needs to be further stress tested to figure out the unknown bugs.

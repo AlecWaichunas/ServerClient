@@ -31,7 +31,7 @@ public class Client{
         new ClientInput(this, new BufferedReader(
                         new InputStreamReader(socket.getInputStream())));
         out = new BufferedOutputStream(socket.getOutputStream());
-
+        this.sendToClient("You are Client" + id + "\n");
     }
 
     //reads message from client, if it was a command
@@ -46,12 +46,13 @@ public class Client{
                 clients[0] = this;
 
                 int id = Integer.parseInt(commands[1].substring(6));
+                System.out.println(id);
                 clients[1] = server.getClient(id);
                 if(clients[1] == null){
-                    this.sendToClient(clients[1].getName() + " not logged in!");
+                    this.sendToClient("Client" + id + " not logged in!\n");
                     return;
                 }else if(clients[1].chatRoom != null){
-                    this.sendToClient(clients[1].getName() + " is already in a Chat Room!");
+                    this.sendToClient(clients[1].getName() + " is already in a Chat Room!\n");
                     return;
                 }
                 this.chatRoom = new ChatRoom(clients);
@@ -64,10 +65,10 @@ public class Client{
                     int id = Integer.parseInt(commands[i].substring(6));
                     clients[i] = server.getClient(id);
                     if(clients[i] == null){
-                        this.sendToClient(clients[i].getName() + " not logged in!");
+                        this.sendToClient("Client" + id + " not logged in!\n");
                         return;
                     }else if(clients[i].chatRoom != null){
-                        this.sendToClient(clients[i].getName() + " is already in a Chat Room!");
+                        this.sendToClient(clients[i].getName() + " is already in a Chat Room!\n");
                         return;
                     }
                 }
@@ -76,7 +77,7 @@ public class Client{
                 String[] clientinfo = commands[1].split("@");
                 Client reqclient = this.server.getClientByIpAndName(clientinfo[0], clientinfo[1]);
                 if(reqclient == null || reqclient.chatRoom == null){
-                    this.sendToClient("Could not find " + clientinfo[0] + "'s Chat Room!'");
+                    this.sendToClient("Could not find " + clientinfo[0] + "'s Chat Room!\n");
                 }else{
                     reqclient.chatRoom.acceptRequest(this);
                 }
@@ -94,14 +95,19 @@ public class Client{
 
     public void sendToClient(String message){
         //send message to client
-        char[] characters = message.toCharArray();
-        for(char byt : characters)
-            try{
-                out.write(byt);
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        out.flush();
+        try{
+            char[] characters = message.toCharArray();
+            for(char byt : characters)
+                try{
+                    out.write(byt);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            out.flush();
+        }catch(IOException e){
+            System.out.println("Message could not be sent");
+        }
+        System.out.println("Message sent");
     }
 
     // get the client's current chat room

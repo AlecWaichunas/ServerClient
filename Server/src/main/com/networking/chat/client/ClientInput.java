@@ -21,8 +21,9 @@ public class ClientInput implements Runnable{
     public void run(){
         String data;
         try{
-            while((data = input.readLine()) != null)
+            while((data = input.readLine()) != null && data.length() > 0){
                 client.readClient(data);
+            }
         }catch(IOException e){
             e.printStackTrace();
         }

@@ -35,7 +35,9 @@ public class Server{
             try{
                 Socket clientSocket = server.accept();
                 int id = this.getNewClientID();
+                System.out.println(id);
                 Client client = new Client(id, clientSocket, this);
+                System.out.println("Connected client");
                 clients.add(id, client);
             }catch(IOException e){
                 //could not connect to client
@@ -46,7 +48,7 @@ public class Server{
 
     // creates a new clients id. This id will be the number of the client
     private int getNewClientID(){
-        int id = -1;
+        int id = 0;
         for(int i = 0; i < clients.size(); i++){
             if(clients.get(i) == null)
                 id = i;
@@ -56,7 +58,7 @@ public class Server{
 
     //get the client based on given ID
     public Client getClient(int index){
-        if(clients.get(index) != null)
+        if(clients.size() > index && clients.get(index) != null)
             return clients.get(index);
         return null;
     }
