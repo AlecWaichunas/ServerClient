@@ -14,11 +14,11 @@ public class ChatRoom {
         this.connected = 1;
         String ringmsg = "Ringing";
         //send request message
-        for(int i = 1; i < connected; i++){
+        for(int i = 1; i < clients.length; i++){
             String msg = "Talk request from" +
                          clients[0].getName() +
                          "@" + clients[0].getIPAddr() +
-                         ". Respond with \"accept" +
+                         ". Respond with \"accept " +
                          clients[0].getName() +
                          "@" + clients[0].getIPAddr() +
                          "\"";
@@ -26,7 +26,7 @@ public class ChatRoom {
             ringmsg += " " + clients[i].getName();
         }
         //send update message to head client
-        clients[0].sendToClient(ringmsg);
+        clients[0].sendToClient(ringmsg );
     }
 
     //accepts clients

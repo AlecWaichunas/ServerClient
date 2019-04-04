@@ -48,10 +48,13 @@ public class Server{
 
     // creates a new clients id. This id will be the number of the client
     private int getNewClientID(){
-        int id = 0;
+        int id = -1;
         for(int i = 0; i < clients.size(); i++){
             if(clients.get(i) == null)
                 id = i;
+        }
+        if(id == -1){
+            id = clients.size();
         }
         return id;
     }
@@ -75,7 +78,7 @@ public class Server{
     public Client getClientByIpAndName(String name, String ip){
         Client c = null;
         for(Client client : clients){
-            if(client.getName().equals(name) &&
+            if(client.getName().equalsIgnoreCase(name) &&
                 client.getIPAddr().equals(ip)){
                     c = client;
                     break;
