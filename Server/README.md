@@ -1,4 +1,4 @@
-### CS440 Lab 1
+### CS440 Lab 2
 
 Alec Waichunas  
 Angel Galeana  
@@ -11,6 +11,7 @@ This client server application allows multiple clients to connect to a server. O
 #### Execution
 The Server must be compiled to run. To compile the server, you can use any Java supported IDE to immediately start it, otherwise you can compile it through a CLI with javac and run it with java.
 
+The Client must be compiled to run. To compile the client, you can use any Java supported IDE to immediately start it, otherwise you can compile it through a CLI with javac and run it with java. The server must be compiled and runned before the client can be runned. Otherwise errors will occur.
 #### The Server Program
 The Server Program consists of 4 classes. Each with their own purpose to connect to the client, and accept different commands through it.
 
@@ -87,6 +88,76 @@ for(Client c : this.clients){
 
 
 #### The Client Program
+The client program consist of one class using the Runnable interface. This class consisist of 4 methods.
+
+The entry method creates the socket and starts the thread. PrintWriter is used to translate objects into text-output. Then makes a call to the ReadClient() method.
+````java
+private Socket s;
+public client() throws IOException {
+ s = new Socket("localhost", 12252);
+ PrintWriter pr = new PrintWriter(s.getOutputStream());
+ (new Thread(this)).start();
+ ReadClient(pr);
+}
+````
+
+This method reads input from the console using a scanner and sends ot to the server. The while loops checks that the socket is open.
+````java
+public void ReadClient(PrintWriter pr) {
+ Scanner scan = new Scanner(System.in);
+ while(!s.isClosed()){
+	String line = scan.nextLine();
+	pr.println(line);
+	pr.flush();
+ }
+}
+````
+
+Next, the run() method reads lines from the server and displays them to the console. There is a while loop present here to check that the socket is still open.
+````java
+public void run() {
+ while(!s.isClosed()){
+  try {
+   InputStreamReader in = new InputStreamReader(s.getInputStream());
+	 BufferedReader bf = new BufferedReader(in);
+	 String str = bf.readLine();
+	 System.out.println(str);
+	}catch(IOException e) {
+		System.err.println("Could not send message");
+	}
+		
+ }
+}
+````
+
+Finally, the main method initializes a new client to run the program.
+````java
+public static void main(String[] args) throws IOException {
+ client cl1 = new client();
+}
+````
+The output of the client is what the server sends over, and what the client inputs. An example is as follows below:
+
+Client0 Terminal:
+You are Client0
+Talk request fromClient1@127.0.0.1. Respond with "accept Client1@127.0.0.1"
+accept Client1@127.0.0.1
+test
+Client1: cool
+cool beans
+Client1: omege cool beans
+Client1: Connection Terminated with Client1
+
+Client1 Terminal:
+You are Client1
+talk client0
+Ringing Client0
+Client0: Talk connection established with Client0
+Client0: test
+cool
+Client0: cool beans
+omege cool beans
+Exit
 
 #### Error detection within the programs
 The server will check if the client exists when a command is ran, if it does not exist the output will look like a version of below.
