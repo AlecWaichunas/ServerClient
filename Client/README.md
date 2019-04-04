@@ -1,4 +1,4 @@
-### CS440 Lab 1
+### CS440 Lab 2
 
 Alec Waichunas  
 Angel Galeana  
