@@ -15,7 +15,11 @@ public class ChatRoom {
         String ringmsg = "Ringing";
         //send request message
         for(int i = 1; i < clients.length; i++){
-            String msg = "Talk request from" +
+            if(clients[i] == null){
+                System.out.println("Could not connect to client");
+                continue;
+            }
+            String msg = "Talk request from " +
                          clients[0].getName() +
                          "@" + clients[0].getIPAddr() +
                          ". Respond with \"accept " +
@@ -39,7 +43,8 @@ public class ChatRoom {
     //casts message
     public void castMessage(Client client, String message){
         for(Client c : this.clients){
-            if(!c.equals(client) && c.getChatRoom().equals(this))
+            if(c != null && !c.equals(client) && c.getChatRoom() != null 
+                && c.getChatRoom().equals(this))
                 c.sendToClient(client.getName() + ": " + message);
         }
     }

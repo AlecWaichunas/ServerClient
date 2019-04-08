@@ -45,7 +45,13 @@ public class Client{
                 Client[] clients = new Client[2];
                 clients[0] = this;
 
-                int id = Integer.parseInt(commands[1].substring(6));
+                int id = -1;
+                try{
+                    id = Integer.parseInt(commands[1].substring(6));
+                }catch(NumberFormatException e){
+                    System.err.println("Could not find client Id");
+                    return;
+                }
                 System.out.println(id);
                 clients[1] = server.getClient(id);
                 if(clients[1] == null){
@@ -61,8 +67,15 @@ public class Client{
                 //create a chat room with multiple clients
                 Client[] clients = new Client[commands.length - 1];
                 clients[0] = this;
-                for(int i = 2; i < commands.length; i++){
-                    int id = Integer.parseInt(commands[i].substring(6));
+                for(int i = 1; i < commands.length - 1; i++){
+                    int id = -1;
+                    try{
+                        id = Integer.parseInt(commands[i + 1].substring(6));
+                    }catch(NumberFormatException e){
+                        System.err.println("Could not find it");
+                        return;
+                    }
+                    
                     clients[i] = server.getClient(id);
                     if(clients[i] == null){
                         this.sendToClient("Client" + id + " not logged in!");
